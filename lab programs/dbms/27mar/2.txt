@@ -1,0 +1,265 @@
+mysql> create database business;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use business;
+Database changed
+mysql> create table salesman(sid int primary key,sname varchar(30),scity varchar(30));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table customer(cid int primary key,cname varchar(30),ccity varchar(30),sid int,foreign key(sid) references salesman(sid));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into salesman values
+    -> (26,'shovan','ctc'),
+    -> (31,'atul','bargarh'),
+    -> (17,'priya','berhampur'),
+    -> (25,'shakti','berhampur'),
+    -> (1,'jena','puri');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values
+    -> (666,'baishnabi','balesore',1),
+    -> (909,'shradha','bbsr',26),
+    -> (323,'priyanka','berhampur',17),
+    -> (191,'rupsita','puri',1),
+    -> (919,'divya','puri',1),
+    -> (545,'anisa','kolkata',1),
+    -> (121,'jharashree','bbsr',25);
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman;
++-----+--------+-----------+
+| sid | sname  | scity     |
++-----+--------+-----------+
+|   1 | jena   | puri      |
+|  17 | priya  | berhampur |
+|  25 | shakti | berhampur |
+|  26 | shovan | ctc       |
+|  31 | atul   | bargarh   |
++-----+--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+------------+-----------+------+
+| cid | cname      | ccity     | sid  |
++-----+------------+-----------+------+
+| 121 | jharashree | bbsr      |   25 |
+| 191 | rupsita    | puri      |    1 |
+| 323 | priyanka   | berhampur |   17 |
+| 545 | anisa      | kolkata   |    1 |
+| 666 | baishnabi  | balesore  |    1 |
+| 909 | shradha    | bbsr      |   26 |
+| 919 | divya      | puri      |    1 |
++-----+------------+-----------+------+
+7 rows in set (0.00 sec)
+
+
+mysql> alter table salesman add column comm float;
+Query OK, 5 rows affected (0.27 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman;
++-----+--------+-----------+------+
+| sid | sname  | scity     | comm |
++-----+--------+-----------+------+
+|   1 | jena   | puri      | NULL |
+|  17 | priya  | berhampur | NULL |
+|  25 | shakti | berhampur | NULL |
+|  26 | shovan | ctc       | NULL |
+|  31 | atul   | bargarh   | NULL |
++-----+--------+-----------+------+
+5 rows in set (0.01 sec)
+
+mysql> update salesman set comm=12.5 where sid=1;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesman set comm=13.6 where sid=17;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesman set comm=13.43 where sid=25;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesman set comm=13.89 where sid=26;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update salesman set comm=12.19 where sid=31;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from salesman;
++-----+--------+-----------+-------+
+| sid | sname  | scity     | comm  |
++-----+--------+-----------+-------+
+|   1 | jena   | puri      |  12.5 |
+|  17 | priya  | berhampur |  13.6 |
+|  25 | shakti | berhampur | 13.43 |
+|  26 | shovan | ctc       | 13.89 |
+|  31 | atul   | bargarh   | 12.19 |
++-----+--------+-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table customer add column grade int;
+Query OK, 7 rows affected (0.17 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from customer;
++-----+------------+-----------+------+-------+
+| cid | cname      | ccity     | sid  | grade |
++-----+------------+-----------+------+-------+
+| 121 | jharashree | bbsr      |   25 |  NULL |
+| 191 | rupsita    | puri      |    1 |  NULL |
+| 323 | priyanka   | berhampur |   17 |  NULL |
+| 545 | anisa      | kolkata   |    1 |  NULL |
+| 666 | baishnabi  | balesore  |    1 |  NULL |
+| 909 | shradha    | bbsr      |   26 |  NULL |
+| 919 | divya      | puri      |    1 |  NULL |
++-----+------------+-----------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> update customer set grade=12 where cid=121;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=7 where cid=121;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=6 where cid=191;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=6 where cid=323;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=8 where cid=545;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=9 where cid=666;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=8 where cid=909;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update customer set grade=5 where cid=919;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from customer;
++-----+------------+-----------+------+-------+
+| cid | cname      | ccity     | sid  | grade |
++-----+------------+-----------+------+-------+
+| 121 | jharashree | bbsr      |   25 |     7 |
+| 191 | rupsita    | puri      |    1 |     6 |
+| 323 | priyanka   | berhampur |   17 |     6 |
+| 545 | anisa      | kolkata   |    1 |     8 |
+| 666 | baishnabi  | balesore  |    1 |     9 |
+| 909 | shradha    | bbsr      |   26 |     8 |
+| 919 | divya      | puri      |    1 |     5 |
++-----+------------+-----------+------+-------+
+7 rows in set (0.00 sec)
+
+mysql> create table ord (ono int primary key,amt int,odate varchar(30),cid int,foreign key(cid) references customer(cid),sid int,foreign key(sid) references salesman(sid));
+
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> insert into ord values
+    -> (1,200,'16/9/2017',909,26),
+    -> (2,550,'14/11/2016',121,25),
+    -> (3,490,'04/04/2016',191,1),
+    -> (4,790,'31/05/2017',323,17),
+    -> (5,1000,'07/12/2017',545,1),
+    -> (6,1040,'15/12/2017',666,1),
+    -> (7,5500,'01/01/2018',909,26),
+    -> (8,500,'20/03/2018',919,1);
+
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from ord;
++-----+------+------------+------+------+
+| ono | amt  | odate      | cid  | sid  |
++-----+------+------------+------+------+
+|   1 |  200 | 16/9/2017  |  909 |   26 |
+|   2 |  550 | 14/11/2016 |  121 |   25 |
+|   3 |  490 | 04/04/2016 |  191 |    1 |
+|   4 |  790 | 31/05/2017 |  323 |   17 |
+|   5 | 1000 | 07/12/2017 |  545 |    1 |
+|   6 | 1040 | 15/12/2017 |  666 |    1 |
+|   7 | 5500 | 01/01/2018 |  909 |   26 |
+|   8 |  500 | 20/03/2018 |  919 |    1 |
++-----+------+------------+------+------+
+8 rows in set (0.00 sec)
+
+
+mysql> select ono,cname from ord,customer where customer.cid=ord.cid order by ono;
++-----+------------+
+| ono | cname      |
++-----+------------+
+|   1 | shradha    |
+|   2 | jharashree |
+|   3 | rupsita    |
+|   4 | priyanka   |
+|   5 | anisa      |
+|   6 | baishnabi  |
+|   7 | shradha    |
+|   8 | divya      |
++-----+------------+
+8 rows in set (0.02 sec)
+
+mysql> insert into customer values (343,'anuja','burla',NULL,NULL);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> select * from customer;
++-----+------------+-----------+------+-------+
+| cid | cname      | ccity     | sid  | grade |
++-----+------------+-----------+------+-------+
+| 121 | jharashree | bbsr      |   25 |     7 |
+| 191 | rupsita    | puri      |    1 |     6 |
+| 323 | priyanka   | berhampur |   17 |     6 |
+| 343 | anuja      | burla     | NULL |  NULL |
+| 545 | anisa      | kolkata   |    1 |     8 |
+| 666 | baishnabi  | balesore  |    1 |     9 |
+| 909 | shradha    | bbsr      |   26 |     8 |
+| 919 | divya      | puri      |    1 |     5 |
++-----+------------+-----------+------+-------+
+8 rows in set (0.00 sec)
+
+mysql> select cname,ccity,sname,comm from customer,salesman where customer.sid=salesman.sid;
++------------+-----------+--------+-------+
+| cname      | ccity     | sname  | comm  |
++------------+-----------+--------+-------+
+| jharashree | bbsr      | shakti | 13.43 |
+| rupsita    | puri      | jena   |  12.5 |
+| priyanka   | berhampur | priya  |  13.6 |
+| anisa      | kolkata   | jena   |  12.5 |
+| baishnabi  | balesore  | jena   |  12.5 |
+| shradha    | bbsr      | shovan | 13.89 |
+| divya      | puri      | jena   |  12.5 |
++------------+-----------+--------+-------+
+7 rows in set (0.00 sec)
+
+mysql> select cname,grade from customer,salesman where customer.sid=salesman.sid;
++------------+-------+
+| cname      | grade |
++------------+-------+
+| jharashree |     7 |
+| rupsita    |     6 |
+| priyanka   |     6 |
+| anisa      |     8 |
+| baishnabi  |     9 |
+| shradha    |     8 |
+| divya      |     5 |
++------------+-------+
+7 rows in set (0.00 sec)
+
+mysql>

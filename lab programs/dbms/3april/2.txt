@@ -1,0 +1,52 @@
+mysql> use university;
+Database changed
+
+mysql> create table dept (did int primary key, dname varchar(30));
+
+mysql> create table emp (eid int primary key, ename varchar(30), did int, age int, salary int, foreign key(did) references dept(did));
+
+mysql> insert into dept values (1,'cse'), (2,'it'), (3,'mca'), (4,'eee'), (5,'ece');
+
+mysql> select * from dept;
++-----+-------+
+| did | dname |
++-----+-------+
+|   1 | cse   |
+|   2 | it    |
+|   3 | mca   |
+|   4 | eee   |
+|   5 | ece   |
++-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values (11,'aa',5,35,70000), (22,'bb',4,45,80000), (33,'cc',3,50,65000), (44,'dd',2,57,35000), (55,'ee',1,48,50000);
+
+mysql> select * from emp;
++-----+-------+------+------+--------+
+| eid | ename | did  | age  | salary |
++-----+-------+------+------+--------+
+|  11 | aa    |    5 |   35 |  70000 |
+|  22 | bb    |    4 |   45 |  80000 |
+|  33 | cc    |    3 |   50 |  65000 |
+|  44 | dd    |    2 |   57 |  35000 |
+|  55 | ee    |    1 |   48 |  50000 |
++-----+-------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select eid,ename,age,salary from (emp join dept on emp.did=dept.did) where dname="cse"or dname="it";
++-----+-------+------+--------+
+| eid | ename | age  | salary |
++-----+-------+------+--------+
+|  55 | ee    |   48 |  50000 |
+|  44 | dd    |   57 |  35000 |
++-----+-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select eid,ename,age,salary from (emp left outer join dept on emp.did=dept.did) where dname="cse"or dname="it";
++-----+-------+------+--------+
+| eid | ename | age  | salary |
++-----+-------+------+--------+
+|  55 | ee    |   48 |  50000 |
+|  44 | dd    |   57 |  35000 |
++-----+-------+------+--------+
+2 rows in set (0.00 sec)

@@ -1,0 +1,113 @@
+Enter password: *****
+Welcome to the MySQL monitor.  Commands end with ;
+Your MySQL connection id is 1
+Server version: 5.1.41-community MySQL Community S
+
+Type 'help;' or '\h' for help. Type '\c' to clear
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| alias              |
+| library            |
+| mysql              |
+| univ               |
+| university         |
++--------------------+
+6 rows in set (0.13 sec)
+mysql> create database abc;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use abc;
+Database changed
+mysql> create table student(s_id int primary key,s
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> describe student;
++-------------+-------------+------+-----+--------
+| Field       | Type        | Null | Key | Default
++-------------+-------------+------+-----+--------
+| s_id        | int(11)     | NO   | PRI | NULL
+| s_name      | varchar(30) | YES  |     | NULL
+| s_marks     | varchar(10) | YES  |     | NULL
+| scholarship | int(11)     | YES  |     | NULL
+| email       | varchar(30) | YES  |     | NULL
++-------------+-------------+------+-----+--------
+5 rows in set (0.02 sec)
+
+mysql> insert into student values(1,'raja','50%',5000,'raja.26@gmail.com'),
+(2,'bidu','60%',60000,'bidu_64@gmail.com'),
+(3,'ranjan','90%',7000,'ranjan.52@gmail.com'),
+(4,'jaydev','50%',6000,'jaydev@GMAIL.COM'),
+(5,'dev','58%',9000,'dev_11@gmail.com');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from student;
++------+--------+---------+-------------+---------------------+
+| s_id | s_name | s_marks | scholarship | email               |
++------+--------+---------+-------------+---------------------+
+|    1 | raja   | 50%     |        5000 | raja.26@gmail.com   |
+|    2 | bidu   | 60%     |       60000 | bidu_64@gmail.com   |
+|    3 | ranjan | 90%     |        7000 | ranjan.52@gmail.com |
+|    4 | jaydev | 50%     |        6000 | jaydev@GMAIL.COM    |
+|    5 | dev    | 58%     |        9000 | dev_11@gmail.com    |
++------+--------+---------+-------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from student where s_name like 'R%';
++------+--------+---------+-------------+---------------------+
+| s_id | s_name | s_marks | scholarship | email               |
++------+--------+---------+-------------+---------------------+
+|    1 | raja   | 50%     |        5000 | raja.26@gmail.com   |
+|    3 | ranjan | 90%     |        7000 | ranjan.52@gmail.com |
++------+--------+---------+-------------+---------------------+
+2 rows in set (0.00 sec)
+
+mysql> select s_name from student where s_name like 'R%';
++--------+
+| s_name |
++--------+
+| raja   |
+| ranjan |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select s_name from student where s_name like '___';
++--------+
+| s_name |
++--------+
+| dev    |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select email from student where email like 'dev\_%@%';
++------------------+
+| email            |
++------------------+
+| dev_11@gmail.com |
++------------------+
+1 row in set (0.00 sec)
+
+
+mysql> select s_name from student where s_marks like '50\%';
++--------+
+| s_name |
++--------+
+| raja   |
+| jaydev |
++--------+
+2 rows in set (0.00 sec)
+
+mysql> select s_name from student where s_marks='50%';
++--------+
+| s_name |
++--------+
+| raja   |
+| jaydev |
++--------+
+2 rows in set (0.00 sec)
+
+mysql>

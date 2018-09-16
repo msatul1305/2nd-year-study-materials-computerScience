@@ -1,0 +1,80 @@
+
+mysql> create database business;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use business;
+Database changed
+mysql> create table salesman(sid int primary key,sname varchar(30),scity varchar(30));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table customer(cid int primary key,cname varchar(30),ccity varchar(30),sid int,foreign key(sid) references salesman(sid));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into salesman values
+    -> (26,'shovan','ctc'),
+    -> (31,'atul','bargarh'),
+    -> (17,'priya','berhampur'),
+    -> (25,'shakti','berhampur'),
+    -> (1,'jena','puri');
+Query OK, 5 rows affected (0.03 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into customer values
+    -> (666,'baishnabi','balesore',1),
+    -> (909,'shradha','bbsr',26),
+    -> (323,'priyanka','berhampur',17),
+    -> (191,'rupsita','puri',1),
+    -> (919,'divya','puri',1),
+    -> (545,'anisa','kolkata',1),
+    -> (121,'jharashree','bbsr',25);
+Query OK, 7 rows affected (0.03 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql> select * from salesman;
++-----+--------+-----------+
+| sid | sname  | scity     |
++-----+--------+-----------+
+|   1 | jena   | puri      |
+|  17 | priya  | berhampur |
+|  25 | shakti | berhampur |
+|  26 | shovan | ctc       |
+|  31 | atul   | bargarh   |
++-----+--------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from customer;
++-----+------------+-----------+------+
+| cid | cname      | ccity     | sid  |
++-----+------------+-----------+------+
+| 121 | jharashree | bbsr      |   25 |
+| 191 | rupsita    | puri      |    1 |
+| 323 | priyanka   | berhampur |   17 |
+| 545 | anisa      | kolkata   |    1 |
+| 666 | baishnabi  | balesore  |    1 |
+| 909 | shradha    | bbsr      |   26 |
+| 919 | divya      | puri      |    1 |
++-----+------------+-----------+------+
+7 rows in set (0.00 sec)
+
+mysql> select cname,sname,scity from customer,salesman where salesman.sid=customer.sid and scity=ccity;
++----------+-------+-----------+
+| cname    | sname | scity     |
++----------+-------+-----------+
+| rupsita  | jena  | puri      |
+| divya    | jena  | puri      |
+| priyanka | priya | berhampur |
++----------+-------+-----------+
+3 rows in set (0.01 sec)
+
+mysql> select cname,sname,scity from customer,salesman where salesman.sid=customer.sid and scity!=ccity;
++------------+--------+-----------+
+| cname      | sname  | scity     |
++------------+--------+-----------+
+| anisa      | jena   | puri      |
+| baishnabi  | jena   | puri      |
+| jharashree | shakti | berhampur |
+| shradha    | shovan | ctc       |
++------------+--------+-----------+
+4 rows in set (0.00 sec)
+
+mysql>

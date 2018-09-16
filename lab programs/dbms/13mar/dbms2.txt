@@ -1,0 +1,97 @@
+mysql> use semester;
+Database changed
+
+mysql> create table semester (s_id int,course_name varchar(10),grade varchar(10),marks int);
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> describe semester;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| s_id        | int(11)     | YES  |     | NULL    |       |
+| course_name | varchar(10) | YES  |     | NULL    |       |
+| grade       | varchar(10) | YES  |     | NULL    |       |
+| marks       | int(11)     | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> insert into semester values
+    -> (1,'pac','a',10),
+    -> (2,'qeg','a',20),
+    -> (3,'rik','c',10),
+    -> (2,'sma','b',5),
+    -> (2,'tgs','b',35),
+    -> (1,'ubd','a',25),
+    -> (3,'u','d',10),
+    -> (2,'njl','a',20),
+    -> (2,'knz','a',5);
+Query OK, 9 rows affected (0.05 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+mysql> select * from semester;
++------+-------------+-------+-------+
+| s_id | course_name | grade | marks |
++------+-------------+-------+-------+
+|    1 | pac         | a     |    10 |
+|    2 | qeg         | a     |    20 |
+|    3 | rik         | c     |    10 |
+|    2 | sma         | b     |     5 |
+|    2 | tgs         | b     |    35 |
+|    1 | ubd         | a     |    25 |
+|    3 | u           | d     |    10 |
+|    2 | njl         | a     |    20 |
+|    2 | knz         | a     |     5 |
++------+-------------+-------+-------+
+9 rows in set (0.00 sec)
+
+mysql> select *from semester where marks between 10 and 20;
++------+-------------+-------+-------+
+| s_id | course_name | grade | marks |
++------+-------------+-------+-------+
+|    1 | pac         | a     |    10 |
+|    2 | qeg         | a     |    20 |
+|    3 | rik         | c     |    10 |
+|    3 | u           | d     |    10 |
+|    2 | njl         | a     |    20 |
++------+-------------+-------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select *from semester where marks not between 10 and 20;
++------+-------------+-------+-------+
+| s_id | course_name | grade | marks |
++------+-------------+-------+-------+
+|    2 | sma         | b     |     5 |
+|    2 | tgs         | b     |    35 |
+|    1 | ubd         | a     |    25 |
+|    2 | knz         | a     |     5 |
++------+-------------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql> select *from semester where marks course_name between 'q' and 'u';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'cours
+e_name between 'q' and 'u'' at line 1
+mysql> select *from semester where course_name between 'q' and 'u';
++------+-------------+-------+-------+
+| s_id | course_name | grade | marks |
++------+-------------+-------+-------+
+|    2 | qeg         | a     |    20 |
+|    3 | rik         | c     |    10 |
+|    2 | sma         | b     |     5 |
+|    2 | tgs         | b     |    35 |
+|    3 | u           | d     |    10 |
++------+-------------+-------+-------+
+5 rows in set (0.00 sec)
+
+
+mysql> select *from semester where course_name not between 'q' and 'u';
++------+-------------+-------+-------+
+| s_id | course_name | grade | marks |
++------+-------------+-------+-------+
+|    1 | pac         | a     |    10 |
+|    1 | ubd         | a     |    25 |
+|    2 | njl         | a     |    20 |
+|    2 | knz         | a     |     5 |
++------+-------------+-------+-------+
+4 rows in set (0.00 sec)
+
+mysql>

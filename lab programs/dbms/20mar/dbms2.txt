@@ -1,0 +1,103 @@
+
+mysql> create database university;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use university;
+Database changed
+mysql> create table dept (did int primary key,dname varchar(30));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> create table emp (eid int primary key,ename varchar(30),did int,sid int,foreign key(did) references dept(did));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> insert into dept values
+    -> (1,'cse'),
+    -> (2,'it'),
+    -> (3,'mca'),
+    -> (4,'eee'),
+    -> (5,'ece');
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into emp values
+    -> (11,'aa',5,22),
+    -> (22,'bb',4,44),
+    -> (33,'cc',3,11),
+    -> (44,'dd',2,55),
+    -> (55,'ee',1,44);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++-----+-------+
+| did | dname |
++-----+-------+
+|   1 | cse   |
+|   2 | it    |
+|   3 | mca   |
+|   4 | eee   |
+|   5 | ece   |
++-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+------+------+
+| eid | ename | did  | sid  |
++-----+-------+------+------+
+|  11 | aa    |    5 |   22 |
+|  22 | bb    |    4 |   44 |
+|  33 | cc    |    3 |   11 |
+|  44 | dd    |    2 |   55 |
+|  55 | ee    |    1 |   44 |
++-----+-------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> select eid,dname from emp,dept where emp.did=dept.did;
++-----+-------+
+| eid | dname |
++-----+-------+
+|  55 | cse   |
+|  44 | it    |
+|  33 | mca   |
+|  22 | eee   |
+|  11 | ece   |
++-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select e1.sid as superid,e2.ename as supername from emp as e1,emp as e2 where e1.sid=e2.eid;
++---------+-----------+
+| superid | supername |
++---------+-----------+
+|      11 | aa        |
+|      22 | bb        |
+|      44 | dd        |
+|      44 | dd        |
+|      55 | ee        |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select sid,dname from emp,dept where emp.did=dept.did;
++------+-------+
+| sid  | dname |
++------+-------+
+|   44 | cse   |
+|   55 | it    |
+|   11 | mca   |
+|   44 | eee   |
+|   22 | ece   |
++------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select distinct e2.ename as supername,dname from emp as e1,emp as e2,dept where e1.sid=e2.eid and e2.did=dept.did;
++-----------+-------+
+| supername | dname |
++-----------+-------+
+| aa        | ece   |
+| bb        | eee   |
+| dd        | it    |
+| dd        | it    |
+| ee        | cse   |
++-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql>
