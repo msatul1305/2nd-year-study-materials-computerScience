@@ -3,7 +3,7 @@ using namespace std;
 class matric
 {
 	int a[3][3];
-		public:
+		public: 
 	matric()
 	{
 		for(int i=0;i<3;i++)
