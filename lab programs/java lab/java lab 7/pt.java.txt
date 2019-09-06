@@ -1,0 +1,68 @@
+import java.util.*;
+class Point
+{
+	int x1,y1,x2,y2,x3,y3;
+	Point(int a,int b,int c,int d,int e,int f)
+	{
+		x1=a;
+		y1=b;
+		x2=c;
+		y2=d;
+		x3=e;
+		y3=f;
+	}
+	double side(int a, int b,int c,int d)
+	{
+		double l=Math.sqrt(Math.abs(Math.pow((d-b),2)+Math.pow((c-a),2)));
+		return l;
+	}
+}
+class Circle extends Point
+{
+	Circle(int a, int b,int c,int d)
+	{
+		super(a,b,c,d,0,0);
+	}
+	void circumference()
+	{
+		double r=side(x1,y1,x2,y2);
+		double peri=2*(r/2)*3.14;
+		System.out.println("Circumference of the Circle : "+peri);
+	}
+}
+class Triangle extends Point
+{
+	Triangle(int a,int b,int c,int d,int e,int f)
+	{
+		super(a,b,c,d,e,f);
+	}
+	void area()
+	{
+		double a=side(x1,y1,x2,y2);
+		double b=side(x2,y2,x3,y3);
+		double c=side(x3,y3,x1,y1);
+		double s=(a+b+c)/2;
+		double ar=Math.sqrt(s*(s-a)*(s-b)*(s-c));
+		System.out.println("Area of the Triangle : "+ar);
+	}
+}
+class Pt
+{
+	public static void main(String[] args) 
+	{
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter the 1st point");
+		int a=sc.nextInt();
+		int b=sc.nextInt();
+		System.out.println("Enter the 2nd point");
+		int c=sc.nextInt();
+		int d=sc.nextInt();
+		System.out.println("Enter the 3rd point");
+		int e=sc.nextInt();
+		int f=sc.nextInt();
+		Circle c1=new Circle(a,b,c,d);
+		c1.circumference();
+		Triangle t1= new Triangle(a,b,c,d,e,f);
+		t1.area();
+	}
+}
