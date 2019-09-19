@@ -1,0 +1,133 @@
+
+mysql> create database sale;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use sale;
+Database changed
+mysql> create table employee (eid int primary key,ename varchar(30), salary int);
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> insert into table values
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values' a
+t line 1
+mysql> insert into employee values
+    -> (26,'shovan',50000),
+    -> (1,'jena',90000),
+    -> (17,'priya',100000),
+    -> (31,'atul',40000),
+    -> (36,NULL,NULL),
+    -> (32,'priyanka',45000);
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-----+----------+--------+
+| eid | ename    | salary |
++-----+----------+--------+
+|   1 | jena     |  90000 |
+|  17 | priya    | 100000 |
+|  26 | shovan   |  50000 |
+|  31 | atul     |  40000 |
+|  32 | priyanka |  45000 |
+|  36 | NULL     |   NULL |
++-----+----------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  65000.0000 |
++-------------+
+1 row in set (0.03 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|      100000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       40000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select sum(salary) from employee;
++-------------+
+| sum(salary) |
++-------------+
+|      325000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from employee;
++---------------+
+| count(salary) |
++---------------+
+|             5 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select max(ename) from employee;
++------------+
+| max(ename) |
++------------+
+| shovan     |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select min(ename) from employee;
++------------+
+| min(ename) |
++------------+
+| atul       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select count(salary) from employee;
++---------------+
+| count(salary) |
++---------------+
+|             5 |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> select count * from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from employee'
+at line 1
+mysql> select count(*) from employee;
++----------+
+| count(*) |
++----------+
+|        6 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select count(ename) from employee;
++--------------+
+| count(ename) |
++--------------+
+|            5 |
++--------------+
+1 row in set (0.00 sec)
+
+mysql> select ename,salary from employee order by ename;
++----------+--------+
+| ename    | salary |
++----------+--------+
+| NULL     |   NULL |
+| atul     |  40000 |
+| jena     |  90000 |
+| priya    | 100000 |
+| priyanka |  45000 |
+| shovan   |  50000 |
++----------+--------+
+6 rows in set (0.00 sec)
+
+mysql>

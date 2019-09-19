@@ -1,0 +1,103 @@
+
+mysql> create database univ;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use univ;
+Database changed
+
+mysql> create table department (dept_id int primary key,dept_name varchar(10));
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> create table employee (e_id int primary key,e_name varchar(30),dept int,age int,salary int,foreign key(dept) references department(dept_id));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> describe department;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| dept_id   | int(11)     | NO   | PRI | NULL    |       |
+| dept_name | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+2 rows in set (0.02 sec)
+
+mysql> describe employee;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| e_id   | int(11)     | NO   | PRI | NULL    |       |
+| e_name | varchar(30) | YES  |     | NULL    |       |
+| dept   | int(11)     | YES  | MUL | NULL    |       |
+| age    | int(11)     | YES  |     | NULL    |       |
+| salary | int(11)     | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.01 sec)
+
+mysql> insert into department values
+    -> (1,'cse'),(2,'it'),(3,'mca'),(4,'civil'),(5,'eee');
+Query OK, 5 rows affected (0.02 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values
+    -> (11,'aa',1,21,5000),
+    -> (22,'bb',2,20,4000),
+    -> (33,'cc',5,22,3000),
+    -> (44,'dd',4,21,1000),
+    -> (55,'ee',3,24,14000),
+    -> (66,'ff',2,23,5000);
+Query OK, 6 rows affected (0.03 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select * from department;
++---------+-----------+
+| dept_id | dept_name |
++---------+-----------+
+|       1 | cse       |
+|       2 | it        |
+|       3 | mca       |
+|       4 | civil     |
+|       5 | eee       |
++---------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee;
++------+--------+------+------+--------+
+| e_id | e_name | dept | age  | salary |
++------+--------+------+------+--------+
+|   11 | aa     |    1 |   21 |   5000 |
+|   22 | bb     |    2 |   20 |   4000 |
+|   33 | cc     |    5 |   22 |   3000 |
+|   44 | dd     |    4 |   21 |   1000 |
+|   55 | ee     |    3 |   24 |  14000 |
+|   66 | ff     |    2 |   23 |   5000 |
++------+--------+------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> select e_name from employee where dept in (1,2,3,5);
++--------+
+| e_name |
++--------+
+| aa     |
+| bb     |
+| cc     |
+| ee     |
+| ff     |
++--------+
+5 rows in set (0.01 sec)
+
+mysql> select e_name from employee where dept in (select dept_id from department where dept_name='cse');
++--------+
+| e_name |
++--------+
+| aa     |
++--------+
+1 row in set (0.03 sec)
+
+mysql> select e_name from employee where dept in (select dept_id from department where dept_name in ('cse','it'));
++--------+
+| e_name |
++--------+
+| aa     |
+| bb     |
+| ff     |
++--------+
+3 rows in set (0.00 sec)

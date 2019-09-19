@@ -1,0 +1,141 @@
+
+mysql> use university;
+Database changed
+mysql> show tables;
++----------------------+
+| Tables_in_university |
++----------------------+
+| dept                 |
+| emp                  |
++----------------------+
+2 rows in set (0.03 sec)
+
+mysql> select * from dept;
++-----+-------+
+| did | dname |
++-----+-------+
+|   1 | cse   |
+|   2 | it    |
+|   3 | mca   |
+|   4 | eee   |
+|   5 | ece   |
++-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-----+-------+------+------+
+| eid | ename | did  | sid  |
++-----+-------+------+------+
+|  11 | aa    |    5 |   22 |
+|  22 | bb    |    4 |   44 |
+|  33 | cc    |    3 |   11 |
+|  44 | dd    |    2 |   55 |
+|  55 | ee    |    1 |   44 |
++-----+-------+------+------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp drop column sid;
+Query OK, 5 rows affected (0.23 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp add age int;
+Query OK, 5 rows affected (0.17 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> alter table emp add salary int;
+Query OK, 5 rows affected (0.20 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++-----+-------+------+------+--------+
+| eid | ename | did  | age  | salary |
++-----+-------+------+------+--------+
+|  11 | aa    |    5 | NULL |   NULL |
+|  22 | bb    |    4 | NULL |   NULL |
+|  33 | cc    |    3 | NULL |   NULL |
+|  44 | dd    |    2 | NULL |   NULL |
+|  55 | ee    |    1 | NULL |   NULL |
++-----+-------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set age=35 where eid=11;
+Query OK, 1 row affected (0.06 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set age=45 where eid=22;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set age=50 where eid=33;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set age=57 where eid=44;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set age=48 where eid=55;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary=50000 where eid=55;
+Query OK, 1 row affected (0.05 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary=35000 where eid=44;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary=65000 where eid=33;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary=80000 where eid=22;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update emp set salary=70000 where eid=11;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-----+-------+------+------+--------+
+| eid | ename | did  | age  | salary |
++-----+-------+------+------+--------+
+|  11 | aa    |    5 |   35 |  70000 |
+|  22 | bb    |    4 |   45 |  80000 |
+|  33 | cc    |    3 |   50 |  65000 |
+|  44 | dd    |    2 |   57 |  35000 |
+|  55 | ee    |    1 |   48 |  50000 |
++-----+-------+------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from dept;
++-----+-------+
+| did | dname |
++-----+-------+
+|   1 | cse   |
+|   2 | it    |
+|   3 | mca   |
+|   4 | eee   |
+|   5 | ece   |
++-----+-------+
+5 rows in set (0.00 sec)
+
+mysql> select eid,ename,age,salary from (emp join dept on emp.did=dept.did) where dname="cse"or dname="it";
++-----+-------+------+--------+
+| eid | ename | age  | salary |
++-----+-------+------+--------+
+|  55 | ee    |   48 |  50000 |
+|  44 | dd    |   57 |  35000 |
++-----+-------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> select eid,ename,age,salary from (emp left outer join dept on emp.did=dept.did) where dname="cse"or dname="it";
++-----+-------+------+--------+
+| eid | ename | age  | salary |
++-----+-------+------+--------+
+|  55 | ee    |   48 |  50000 |
+|  44 | dd    |   57 |  35000 |
++-----+-------+------+--------+
+2 rows in set (0.00 sec)
